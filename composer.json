@@ -1,0 +1,13 @@
+{
+    "name": "openclassrooms/jeanforteroche",
+    "description": "Projet 4 - Développeur Web Junior - Php architecture MVC",
+    "authors": [
+        {
+            "name": "Yann Rioual",
+            "email": "rioualy@gmail.com"
+        }
+    ],
+    "require": {
+        "twbs/bootstrap": "4.0.0"
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "name": "jeanforteroche",
+    "description": "Projet 4 - Développeur Web Junior - Php architecture MVC",
+    "keywords": [
+      "pedagogic",
+      "template",
+      "web",
+      "application",
+      "php",
+      "mvc"
+    ],
+    "license": "MIT",
+    "main": "index.php",
+    "homepage": "https://tocwebproject.fr",
+    "repository": "github:TocWebProject/projet4",
+    "bugs": "https://github.com/TocWebProject/projet4/issues",
+    "dependencies": {
+        "twbs/bootstrap": "4.0.0"
+    },
+    "author": {
+      "name": "Yann Rioual",
+      "email": "rioualy@gmail.om",
+      "url": "https://tocwebproject.fr"
+    }
+  }
