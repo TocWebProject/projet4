@@ -1,0 +1,101 @@
+/*!
+* Jean Forteroche - Log In (https://tocwebproject.fr)
+* Copyright TocWebProject 2020
+* Licensed under MIT
+* Using Bootstrap 4
+*/
+
+/* -------------------------- BODY CUSTOM -------------------------- */
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+    font-family: 'Muli', sans-serif;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background-color: antiquewhite;
+}
+
+/* -------------------------- FORM CUSTOM -------------------------- */
+.form-signin {
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    background-color: antiquewhite;
+    opacity: .8;
+}
+
+.form-signin img{
+    padding: 5px;
+    background-color: white;
+}
+.form-signin .checkbox {
+  font-weight: 400;
+}
+.form-signin .form-control {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.btn.btn-md {
+    margin-top: 5px;
+    margin-bottom: 10px;
+    padding: 10px;
+    width: 150px !important;
+    background-color: #495057 !important;
+}
+
+
+.btn.btn-md:hover {
+    margin-top: 5px;
+    margin-bottom: 10px;
+    padding: 10px;
+    width: 150px;
+    background-color: #868b8f !important;
+}
+
+form a{
+    color: rgb(158, 131, 74);
+}
+
+form a:hover{
+    color: rgb(204, 178, 121);
+}
+
+
+/* -------------------------- BACKGROUND CUSTOM -------------------------- */
+
+
+.bg{
+    height: 560px;
+    background:linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(img/top-img-jean-forteroche-cc-art-lasovsky-unsplash.jpg);
+    background-size: cover;
+    background-position: center;
+    box-shadow: 4px 10px 20px 0 rgba(0,0,0,0.16), 4px 10px 20px 0 rgba(0,0,0,0.12);
+}

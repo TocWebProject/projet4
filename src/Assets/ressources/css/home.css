@@ -1,0 +1,139 @@
+/*!
+* Jean Forteroche - Home Blog (https://tocwebproject.fr)
+* Copyright TocWebProject 2020
+* Licensed under MIT
+* Using Bootstrap 4
+*/
+
+
+/* -------------------------- BODY CUSTOM -------------------------- */
+body{
+    font-family: 'Muli', sans-serif;
+}
+ 
+.btn-secondary {
+    color: #fff;
+    background-color: #495057 !important;
+}
+
+
+/* -------------------------- HEADER CUSTOM -------------------------- */
+.header{
+    color: antiquewhite;
+    text-shadow: 1px 1px 2px black;;
+    height: 100%;
+    padding-top: 100px;
+    padding-bottom: 100px;
+    font-weight: 600;
+    font-size: large;
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)) ,url(img/top-img-jean-forteroche-cc-art-lasovsky-unsplash.jpg);
+    background-size: cover;
+    background-position: center;
+}
+
+header .text-muted {
+    color: #ffffff !important;
+}
+
+
+/* -------------------------- NAVBAR CUSTOM -------------------------- */
+
+.navbar-dark .navbar-text {
+    color: 
+    rgb(230, 217, 188);
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: rgb(230, 217, 188);
+}
+
+.navbar-expand-md .navbar-collapse {
+    justify-content: end !important;
+    text-align: end;
+}
+
+.navbar.navbar-dark .breadcrumb .nav-item.active > .nav-link, .navbar.navbar-dark .navbar-nav .nav-item.active > .nav-link {
+    background-color: rgb(33, 33, 33);
+    color: rgb(211, 200, 180);
+    animation: none;
+}
+
+/* -------------------------- SECTION 1 - LAST ARTICLES -------------------------- */
+
+
+.section_1_last_articles{
+ padding: 60px 50px 100px 50px;
+ background-color: rgb(255, 243, 219);
+}
+
+.section_1_last_articles img{
+    margin-top: 40px !important;
+}
+
+.hr_section1{
+    border: none;
+    width: 20%;
+    border-top: 2px solid #343A40;
+    color: #333;
+    overflow: visible;
+    text-align: center;
+    height: 5px;
+}
+
+
+
+/* -------------------------- SECTION 2 - CALL TO SEE ALL ARTICLES -------------------------- */
+
+.section_2_call_all_articles {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    background-color: rgb(230, 217, 188);
+}
+
+/* -------------------------- FOOTER -------------------------- */
+
+footer a{
+    color: rgb(158, 131, 74);
+}
+
+footer a:hover{
+    color: rgb(204, 178, 121);
+}
+
+.logo_footer{
+    margin-bottom: 6px;
+}
+
+/* -------------------------- RESPONSIVE -------------------------- */
+
+/* ========== Medium devices (md) (tablets, 768px and up) ========== */
+
+@media (max-width: 768px) { 
+
+    .header{
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+}
+
+
+
+
+/* ========== Bootstrap BREAK POINTS: ==========
+
+Extra small devices (portrait phones, less than 576px)
+// No media query for `xs` since this is the default in Bootstrap
+
+// Small devices (sm) (landscape phones, 576px and up)
+@media (min-width: 576px) { ... }
+
+// Medium devices (md)(tablets, 768px and up)
+@media (min-width: 768px) { ... }
+
+// Large devices (ld) (desktops, 992px and up)
+@media (min-width: 992px) { ... }
+
+// Extra large devices (xl)(large desktops, 1200px and up)
+@media (min-width: 1200px) { ... }
+
+*/

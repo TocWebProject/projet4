@@ -1,0 +1,132 @@
+/*!
+* Jean Forteroche - Single Article (https://tocwebproject.fr)
+* Copyright TocWebProject 2020
+* Licensed under MIT
+* Using Bootstrap 4
+*/
+
+
+  /* -------------------------- BODY CUSTOM -------------------------- */
+body{
+    font-family: 'Muli', sans-serif;
+}
+ 
+.btn-primary {
+    color: #fff;
+    background-color: #495057 !important;
+}
+
+
+/* -------------------------- HEADER CUSTOM -------------------------- */
+.header{
+    color: antiquewhite;
+    text-shadow: 1px 1px 2px black;;
+    height: 100%;
+    padding-top: 100px;
+    padding-bottom: 100px;
+    font-weight: 600;
+    font-size: large;
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)) ,url(img/top-img-jean-forteroche-cc-art-lasovsky-unsplash.jpg);
+    background-size: cover;
+    background-position: center;
+}
+
+header .text-muted {
+    color: #ffffff !important;
+}
+
+
+/* -------------------------- NAVBAR CUSTOM -------------------------- */
+
+.navbar-dark .navbar-text {
+    color: 
+    rgb(230, 217, 188);
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: rgb(230, 217, 188);
+}
+
+.navbar-expand-md .navbar-collapse {
+    justify-content: end !important;
+    text-align: end;
+}
+
+.navbar.navbar-dark .breadcrumb .nav-item.active > .nav-link, .navbar.navbar-dark .navbar-nav .nav-item.active > .nav-link {
+    background-color: rgb(33, 33, 33);
+    color: rgb(211, 200, 180);
+    animation: none;
+}
+
+/* -------------------------- PAGE CONTENT -------------------------- */
+.section_1_single_article{
+    background-color: rgb(255, 243, 219);
+}
+
+    /* - Author Custom - */
+    .author{
+        color:  rgb(33, 33, 33);
+    }
+
+    .by{
+        color: rgb(100, 99, 99);
+    }
+
+    /* - Parallax Design - */
+    .parallax{
+        background: url(img/jean-forteroche-ecrivain-cc-paxson-woelber.jpg) no-repeat center;
+        background-size: cover;
+        background-attachment: fixed;
+        height: 250px;
+
+    }
+
+    /* - Comment Custom  - */
+    .comment_date{
+        font-size: small;
+    }
+
+    .media-body{
+        margin: 0px 40px 25px 40px;
+    }
+
+    h5{
+        color: rgb(75, 55, 12);
+        font-weight: 600;
+    }
+    /* - Custom Signal Comment Style  - */
+    .comment a{
+        color: rgb(158, 131, 74);
+    }
+    
+    .comment a:hover{
+        color: rgb(204, 178, 121);
+    }
+
+
+/* -------------------------- FOOTER -------------------------- */
+
+footer a{
+    color: rgb(158, 131, 74);
+}
+
+footer a:hover{
+    color: rgb(204, 178, 121);
+}
+
+.logo_footer{
+    margin-bottom: 6px;
+}
+
+  /* -------------------------- RESPONSIVE -------------------------- */
+
+/* ========== Medium devices (md) (tablets, 768px and up) ========== */
+
+@media (max-width: 768px) { 
+
+    .header{
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+}
+
