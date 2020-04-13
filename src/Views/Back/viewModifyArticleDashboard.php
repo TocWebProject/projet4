@@ -26,7 +26,7 @@
             <a href="index.php?action=modifyArticle">Editer vos articles</a>
         </li>
         <li>
-            <a href="#">Modérer les commentaires</a>
+            <a href="index.php?action=moderateComments">Modérer les commentaires</a>
         </li>
     </ul>
 
@@ -70,39 +70,32 @@
                 <table class="table table-striped table-bordered">
                     <thead>
                     <tr>
-                        <th scope="col" class="w-25">Identifiant</th>
-                        <th scope="col " class="w-25">Titre</th>
+                        <th scope="col" class="w-25">Titre</th>
+                        <th scope="col " class="w-25">Extrait</th>
                         <th scope="col" class="w-25">Lire / Modifer / Supprimer</th>
                     </tr>
                     </thead>
                     <tbody>
+
+                    <?php
+                    while ($post = $posts->fetch()) {
+                    ?>
+
                     <tr>
-                        <th scope="row d-flex justify-content-center">1</th>
-                        <td>Article 1</td>
+                        <th scope="row d-flex justify-content-center"><?php echo htmlspecialchars($post['title']); ?></th>
+                        <td><p><?php echo htmlspecialchars(extractContent($post['content'], 40)); ?></p></td>
                         <td>
                         <button type="button" class="btn btn-outline-primary btn-sm"><i class="fas fa-eye"></i></button>
                         <button type="button" class="btn btn-outline-success btn-sm"><i class="fas fa-edit"></i></button>
                         <button type="button" class="btn btn-outline-danger btn-sm"><i class="fas fa-trash"></i></button>
                         </td>
                     </tr>
-                    <tr>
-                        <th scope="row d-flex justify-content-center">2</th>
-                        <td>Article 2</td>
-                        <td>
-                        <button type="button" class="btn btn-outline-primary btn-sm"><i class="fas fa-eye"></i></button>
-                        <button type="button" class="btn btn-outline-success btn-sm"><i class="fas fa-edit"></i></button>
-                        <button type="button" class="btn btn-outline-danger btn-sm"><i class="fas fa-trash"></i></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row d-flex justify-content-center">3</th>
-                        <td>Article 3</td>
-                        <td>
-                        <button type="button" class="btn btn-outline-primary btn-sm"><i class="fas fa-eye"></i></button>
-                        <button type="button" class="btn btn-outline-success btn-sm"><i class="fas fa-edit"></i></button>
-                        <button type="button" class="btn btn-outline-danger btn-sm"><i class="fas fa-trash"></i></button>
-                        </td>
-                    </tr>
+
+                    <?php
+                    };
+                    $posts->closeCursor(); // Termine le traitement de la requête
+                    ?>
+
                     </tbody>
                 </table>
                 </div>
