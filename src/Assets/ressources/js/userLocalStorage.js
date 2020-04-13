@@ -8,9 +8,8 @@ let form = document.getElementById("getForm");
 
 function userLocalSto() {
 
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
-    
+    form.addEventListener('submit', () => {
+        
         if (inputCheckbox.checked === true){
         // Enregistrement du Nom et Prenom dans localStorage.
             let emailStock = inputEmailUser.value;

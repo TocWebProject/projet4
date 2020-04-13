@@ -5,7 +5,7 @@
 
 <!-- ========== LOG IN FORM ========== -->
 <section class="container-fluid bg align-middle text-center">
-    <form class="form-signin" action="../../index.php?action=checkLogIn" id="getForm" method="POST">
+    <form class="form-signin" action="./index.php?action=checkLogIn" id="getForm" method="POST">
         <img class="mb-4 rounded" src="src/Assets/img/pen-logo-jean-forteroche.svg" alt="" width="72" height="72">
         <h1 class="h3 mb-3 font-weight-normal animated fadeInUp">Se connecter</h1>
         <label for="inputEmail" class="sr-only">Adresse Email</label>
