@@ -1,5 +1,7 @@
 <?php
 
+// session_start();
+
 require('src/Controllers/ControllerFront.php');
 require('src/Controllers/ControllerBack.php');
 
@@ -61,7 +63,7 @@ require('src/Controllers/ControllerBack.php');
             }
         }
     } 
-    
+        
     if($_GET["action"] === "dashboard"){
         dashboard();
     }
@@ -73,5 +75,11 @@ require('src/Controllers/ControllerBack.php');
     if($_GET["action"] === "modifyArticle"){
         modifyArticle();
     }
+
+    if($_GET["action"] === "moderateComments"){
+        moderateComments();
+    }
+
+
 
 }

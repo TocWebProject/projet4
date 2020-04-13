@@ -26,7 +26,7 @@
         <a href="index.php?action=modifyArticle">Editer vos articles</a>
        </li>
       <li>
-        <a href="#">Modérer les commentaires</a>
+        <a href="index.php?action=moderateComments">Modérer les commentaires</a>
       </li>
     </ul>
 

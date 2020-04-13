@@ -55,7 +55,7 @@ function addComment($postId, $author, $insertComment){
 
 }
 
-// Récupération des commentaires.
+// Récupération des commentaires d'un article.
 function getComments($postId)
 {
     $db = dbConnect();
@@ -65,6 +65,16 @@ function getComments($postId)
     return $comments;
 }
 
+// Récupération de tous les commentaires du blog
+function getAllComments() 
+{
+    $db = dbConnect();
+    $allComments = $db -> query('SELECT id, articleid, author, comment, DATE_FORMAT(comment_date, \'%d/%m/%Y\') AS day_post FROM comments ORDER BY comment_date DESC');
+
+    return $allComments;
+
+} 
+
 // Check Login
 function checkLogin($mail, $pwd)
 {
@@ -72,8 +82,9 @@ function checkLogin($mail, $pwd)
     $quey = $db->prepare('SELECT * FROM adminLogin WHERE emailAdmin = ?');
     $query->execute(array($mail));
 
-
     $result = $query->fetch();
+
+    // if password verify ->  $_SESSION["mailADmin"] = $result["emailBDD"]
 
     //var_dump($result);
     //die;

@@ -214,13 +214,12 @@ a.deconnexion:hover {
 /* --- Table Style on ModifyArticle --*/
 
 .container {
-  padding: 2rem 0rem;
+  padding: 1rem 0rem;
 }
 thead {
   background-color: #ccb2794f;
 }
 
 .table td th  {
-
     margin: auto;
   }

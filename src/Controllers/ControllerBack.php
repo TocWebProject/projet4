@@ -9,5 +9,11 @@ function addArticle(){
 }
 
 function modifyArticle(){
+    $posts = getPosts();
     require ('src/Views/Back/viewModifyArticleDashboard.php');
+}
+
+function moderateComments(){
+    $comments = getAllComments();
+    require ('src/Views/Back/viewCommentsModeration.php');
 }
