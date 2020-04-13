@@ -39,10 +39,9 @@
                     <small>"Billet simple pour l'Alaska"</small>
                 </h1>
 
-                <?php
-                    
+                <?php    
                 while ($post = $posts->fetch()) {
-                    ?>
+                ?>
 
                     <!-- Blog Post -->
                     <div class="card mb-4">
@@ -58,9 +57,8 @@
                         </div>
                     </div>
 
-                    <?php
+                <?php
                 };
-
                 $posts->closeCursor(); // Termine le traitement de la requête
                 ?>
 
