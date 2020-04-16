@@ -78,41 +78,38 @@ function getAllComments()
 // Check Login
 function checkLogin($mail, $pwd)
 {
-    $db = dbConnect();
-    $quey = $db->prepare('SELECT * FROM adminLogin WHERE emailAdmin = ?');
-    $query->execute(array($mail));
+        // Récupération des informations de l'admin dans la base de donnée
+        $db = dbConnect();
+        $query = $db->prepare('SELECT * FROM adminLogin WHERE emailAdmin = ?');
+        $query->execute(array($mail));
+        $row=$query->fetch(PDO::FETCH_ASSOC);
 
-    $result = $query->fetch();
+        // Vérification de la corespondance entre les informations entre la saisie de l'utilisateur et les informations de la base de donnée.
+        $isPasswordCorrect = password_verify($pwd, $row["pwdAdmin"]);
+        var_dump($mail);
+        var_dump($isPasswordCorrect);
+        var_dump($row['pwdAdmin']);
+        var_dump($pwd);
 
-    // if password verify ->  $_SESSION["mailADmin"] = $result["emailBDD"]
+        
+        if (!$row) {
+            echo 'Mauvais identifiant ';
+        } else {
+            if ($isPasswordCorrect) {
+     
+                echo 'Vous êtes connecté !';
+                session_start();
+                $_SESSION['userid'] = $row['emailAdmin'];
+                header('location: ./index.php?action=dashboard');
 
-    //var_dump($result);
-    //die;
-
-
-    if(mysqli_num_rows($result) > 0){
-
-        while($row = mysqli_fetch_array($result)){
-
-            if(password_verify($pwd, $row["pwdAdmin"])){
-                return true;
-
-                require ('src/Views/Front/viewAccueilDashboard.php');
-            }
-            else{
-                return false;
+            } else {
+                echo 'Mauvais identifiant ou mot de passe !';
             }
         }
-    }
 
+ }  
+        
 
-
- 
-
-    
-
-
-}
 
 
 

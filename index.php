@@ -1,6 +1,6 @@
 <?php
 
-// session_start();
+session_start();
 
 require('src/Controllers/ControllerFront.php');
 require('src/Controllers/ControllerBack.php');
@@ -16,6 +16,11 @@ require('src/Controllers/ControllerBack.php');
     if($_GET["action"] === "login"){
         login();
     }
+
+    if($_GET["action"] === "logout"){
+        logout();
+    }
+
     if($_GET["action"] === "checkLogIn"){
             //Si l'utilisateur envoie ses informations personnels
             if(isset($_POST['submit_logIn'])){
@@ -23,18 +28,16 @@ require('src/Controllers/ControllerBack.php');
                 if(isset($_POST['emailAdmin'], $_POST['pwdAdmin']) AND !empty($_POST['emailAdmin']) AND !empty($_POST['pwdAdmin'])) {
                     // Sécurisation des valeurs transmise par l'utilisateur:
                     // Suppression des espaces inutiles
-                    $emailAdmin = trim($_POST['emailAdmin']);
-                    $pwdAdmin = trim($_POST['pwdAdmin']);
+                    $checkEmailAdmin = trim($_POST['emailAdmin']);
+                    $checkPwdAdmin = trim($_POST['pwdAdmin']);
                     // Suppression des antislashes 
-                    $emailAdmin = stripslashes($_POST['emailAdmin']);
-                    $pwdAdmin = stripslashes($_POST['pwdAdmin']);
+                    $checkEmailAdmin = stripslashes($_POST['emailAdmin']);
+                    $checkPwdAdmin = stripslashes($_POST['pwdAdmin']);
                     // Suppression des caractères spéciaux tel que les chevrons > & <
-                    $emailAdmin = htmlspecialchars($_POST['emailAdmin']);
-                    $pwdAdmin = htmlspecialchars($_POST['pwdAdmin']);
-                    // Encryptage du mot de pass Admin
-                    $hashedPwdAdminInDb = password_hash("$pwdAdmin", PASSWORD_DEFAULT); 
+                    $checkEmailAdmin = htmlspecialchars($_POST['emailAdmin']);
+                    $checkPwdAdmin = htmlspecialchars($_POST['pwdAdmin']);
                     // Vérification LogIn
-                    getCheckLogin($emailAdmin, $hashedPwdAdminInDb);
+                    getCheckLogin($checkEmailAdmin, $checkPwdAdmin);
     
                 }
             }
@@ -79,7 +82,5 @@ require('src/Controllers/ControllerBack.php');
     if($_GET["action"] === "moderateComments"){
         moderateComments();
     }
-
-
 
 }

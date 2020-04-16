@@ -23,8 +23,20 @@
             <li class="nav-item active">
                 <a class="nav-link" href="index.php?action=blog">Articles</a>
             </li>
+            <?php
+                if(isset($_SESSION['userid'])) {
+                    echo '<li class="nav-item"><a class="nav-link" href="index.php?action=dashboard">Espace Administration</a></li>';
+                }   
+            ?>  
             <li class="nav-item">
-                <a class="nav-link" href="index.php?action=login">Se Connecter</a>
+                <?php
+                    if(isset($_SESSION['userid'])) {
+                        echo '<a class="nav-link" href="index.php?action=logout">Se Déconnecter</a>';
+                    }
+                    else{
+                        echo '<a class="nav-link" href="index.php?action=login">Se Connecter</a>';
+                    }       
+                ?>  
             </li>
         </ul>
     </div>

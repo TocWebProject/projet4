@@ -32,10 +32,10 @@
 
     <ul class="list-unstyled CTAs">
       <li>
-        <a href="#" class="backToBlog">Retour au Blog</a>
+        <a href="index.php?action=accueil" class="backToBlog">Retour au Blog</a>
       </li>
       <li>
-        <a href="#" class="deconnexion">Se déconnecter</a>
+        <a href="index.php?action=logout" class="deconnexion">Se déconnecter</a>
       </li>
     </ul>
   </nav>

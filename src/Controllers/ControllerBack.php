@@ -1,19 +1,39 @@
 <?php
 
 function dashboard(){
+    if(isset($_SESSION['userid'])){
     require ('src/Views/Back/viewHomeDashboard.php');
+    }
+    else {
+        header('location: ./index.php?action=accueil');
+    }
 }
 
 function addArticle(){
-    require ('src/Views/Back/viewAddArticleDashboard.php');
+    if(isset($_SESSION['userid'])){
+        require ('src/Views/Back/viewAddArticleDashboard.php');
+        }
+        else {
+            header('location: ./index.php?action=accueil');
+        }
 }
 
 function modifyArticle(){
-    $posts = getPosts();
-    require ('src/Views/Back/viewModifyArticleDashboard.php');
+    if(isset($_SESSION['userid'])){
+        $posts = getPosts();
+        require ('src/Views/Back/viewModifyArticleDashboard.php');
+        }
+        else {
+            header('location: ./index.php?action=accueil');
+        }
 }
 
 function moderateComments(){
-    $comments = getAllComments();
-    require ('src/Views/Back/viewCommentsModeration.php');
+    if(isset($_SESSION['userid'])){
+        $comments = getAllComments();
+        require ('src/Views/Back/viewCommentsModeration.php');
+        }
+        else {
+            header('location: ./index.php?action=accueil');
+        }
 }

@@ -26,11 +26,18 @@ function login(){
     require ('src/Views/Front/viewLogIn.php');
 }
 
-function getCheckLogin($emailAdmin, $hashedPwdAdminInDb){
+function getCheckLogin($checkEmailAdmin, $checkPwdAdmin){
     
-    $newLogIn = checkLogin($emailAdmin, $hashedPwdAdminInDb);
+    $newLogIn = checkLogin($checkEmailAdmin, $checkPwdAdmin);
 
-    require ('src/Views/Back/viewHomeDashboard.php');
+}
+
+function logout(){
+
+    session_unset();
+    session_destroy();
+    accueil();
+    
 }
 
 
