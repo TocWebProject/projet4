@@ -12,6 +12,7 @@
         <input type="email" name="emailAdmin" id="inputEmail" class="form-control" placeholder="Adresse Email" autocomplete="username" required="" autofocus="">
         <label for="inputPassword" class="sr-only">Mot de passe</label>
         <input type="password" name="pwdAdmin" id="inputPassword" autocomplete="current-password" class="form-control" placeholder="Mot de passe" required="">
+        <div class="red-text"><?php if(isset($errors)){echo $errors;} ?></div>
         <div class="checkbox mb-3">
             <label>
                 <input type="checkbox" id="check" value="remember-me"> Se souvenir de moi 

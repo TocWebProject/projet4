@@ -1,11 +1,10 @@
 <?php $title = 'Jean Forteroche - Accueil'; ?>
 <?php $ressourceCSS = 'src/Assets/ressources/css/home.css'; ?>
 
-
 <?php ob_start(); ?>
 
+<!-- ========== HEADER ========== -->
 <?php require('header.php'); ?>
-
 
 <!-- ========== NAVBAR ========== -->
 <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top text-center">
@@ -53,22 +52,22 @@
        
     while ($lastArticle = $lastThreePosts->fetch()) {
                         
-        ?>
+    ?>
 
         <div class="col-lg-4 text-center animated fadeInUp">
             <img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
-            <h2><?php echo htmlspecialchars($lastArticle['title']); ?></h2>
-            <p><?php echo htmlspecialchars(getExtractContent($lastArticle['content'], 250)); ?></p>
+            <h2><?php echo $lastArticle['title']; ?></h2>
+            <p><?php echo getExtractContent($lastArticle['content'], 250); ?></p>
             <p><a class="btn btn-secondary" href="index.php?action=article&id=<?= $lastArticle['id']; ?>" role="button">Lire »</a></p>
         </div>
 
 
     <?php
     };
+
     $lastThreePosts->closeCursor(); // Termine le traitement de la requête
-        ?>
-
-
+    
+    ?>
 
     </div>
 </section>
@@ -85,7 +84,7 @@
     </div>
 </section>
 
-
+<!-- ========== FOOTER ========== -->
 <?php require('footer.php'); ?>
 
 <?php $content = ob_get_clean(); ?>

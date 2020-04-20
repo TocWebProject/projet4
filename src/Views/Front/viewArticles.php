@@ -1,9 +1,9 @@
 <?php $title = 'Jean Forteroche - Tous les articles'; ?>
 <?php $ressourceCSS = 'src/Assets/ressources/css/all-articles.css'; ?>
 
-
 <?php ob_start(); ?>
 
+<!-- ========== HEADER ========== -->
 <?php require('header.php'); ?>
 
 <!-- ========== NAVBAR ========== -->
@@ -59,8 +59,8 @@
                     <div class="card mb-4">
                         <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
                         <div class="card-body">
-                            <h2 class="card-title"><?php echo htmlspecialchars($post['title']); ?></h2>
-                            <p class="card-text"><?php echo htmlspecialchars(extractContent($post['content'], 500)); ?></p>
+                            <h2 class="card-title"><?php echo $post['title']; ?></h2>
+                            <p class="card-text"><?php echo extractContent($post['content'], 500); ?></p>
                             <a href="index.php?action=article&id=<?= $post['id']; ?>" class="btn btn-primary">Lire l'article &rarr;</a>
                         </div>
                         <div class="card-footer text-muted">
@@ -80,6 +80,7 @@
     </div>
 </section>
 
+<!-- ========== FOOTER ========== -->
 <?php require('footer.php'); ?>
 
 <?php $content = ob_get_clean(); ?>

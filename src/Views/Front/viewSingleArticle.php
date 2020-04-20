@@ -3,6 +3,7 @@
 
 <?php ob_start(); ?>
 
+<!-- ========== HEADER ========== -->
 <?php require('header.php'); ?>
 
 <!-- ========== NAVBAR ========== -->
@@ -49,14 +50,14 @@
             <!-- Post Content Column -->
             <div class="col-lg-8">     
                 <!-- Title -->
-                <h1 class="mt-4 animated fadeInLeft"><?php echo htmlspecialchars($post['title']); ?></h1>
+                <h1 class="mt-4 animated fadeInLeft"><?php echo $post['title']; ?></h1>
                 <!-- Author -->
                 <p class="by lead animated fadeInUp">
                 by <span class="author">Jean Forteroche</span>
                 </p>
                 <hr>
                 <!-- Date/Time -->
-                <p><?php echo " Publié le " . $post['day_post']; ?></p>
+                <?php echo " Publié le " . $post['day_post']; ?>
             
                 <hr>
             
@@ -68,7 +69,7 @@
                 <!-- Post Content -->
                 <div class="container">
                     <!-- Post Content -->                
-                    <p><?php echo htmlspecialchars($post['content']); ?></p>
+                    <?php echo $post['content']; ?>
         
 
                     <hr>
@@ -123,15 +124,12 @@
                 $comments->closeCursor(); // Termine le traitement de la requête
                 ?>
 
-
-
-
             </div> 
         </div>
     </div>  
 </section>
 
-
+<!-- ========== FOOTER ========== -->
 <?php require('footer.php'); ?>
 
 <?php $content = ob_get_clean(); ?>

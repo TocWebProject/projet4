@@ -66,28 +66,28 @@
                 <div class="row">
                   <div class="col-md-12 col-md-offset-3">
                     <div class="well well-sm">
-                      <form class="form-horizontal" action="#" method="post">
+                      <form class="form-horizontal" action="./index.php?action=addNewArticle" method="post">
                       <fieldset>                
                         <!-- Titre de l'épisode-->
                         <div class="form-group">
-                          <label class="col-md-3 control-label" for="title">Titre</label>
+                          <label class="col-md-3 control-label" for="titleNewPost">Titre</label>
                           <div class="col-md-9">
-                            <input name="titleNewPost" type="text" placeholder="Votre titre" class="form-control">
+                            <input name="titleNewPost" id="titleNewPost" type="text" placeholder="Votre titre" class="form-control" type="text" required="">
                           </div>
                         </div>
                 
                         <!-- Texte de l'épisode-->
                         <div class="form-group">
-                          <label class="col-md-3 control-label" for="message">Votre texte</label>
+                          <label class="col-md-3 control-label" for="contentNewPost">Votre texte</label>
                           <div class="col-md-12">
-                            <textarea aria-label="content" class="form-control" id="contentNewPost" name="contentNewPost" placeholder="Déposer le nouvel épisode ici..." rows="16" cols="100"></textarea>
+                            <textarea aria-label="content" class="form-control" id="contentNewPost" name="contentNewPost" placeholder="Déposer le nouvel épisode ici..." rows="16" cols="100" type="text"></textarea>
                           </div>
                         </div>
                 
                         <!-- Publier l'épisode-->
                         <div class="form-group">
                           <div class="col-md-12 text-left">
-                            <button type="submit" class="btn btn-primary btn-lg submitArticle">Publier</button>
+                            <button type="submit" name="submit_article" class="btn btn-primary btn-lg submitArticle">Publier</button>
                           </div>
                         </div>
                       </fieldset>
