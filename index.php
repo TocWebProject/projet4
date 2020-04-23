@@ -6,6 +6,8 @@ require('src/Controllers/ControllerFront.php');
 require('src/Controllers/ControllerBack.php');
 
 
+/// ------------------------------- Router Front ------------------------------- ///
+
  if(isset($_GET["action"])) {
 
     // Affichage de la liste des articles. 
@@ -14,11 +16,39 @@ require('src/Controllers/ControllerBack.php');
         blog();
     }
 
+    // Affichage d'un article précis grace à son ID.     
+    if($_GET["action"] === "article"){
+        if(isset($_GET["id"])) {
+            $id = intval($_GET["id"]);
+            singlePost($id);
+        }
+        //Si l'utilisateur envoie un commentaire
+        if(isset($_POST['submit_comment'])){
+            // Si les champs existent et qu'ils ne sont pas vides.
+            if(isset($_POST['userName'], $_POST['comment']) AND !empty($_POST['userName']) AND !empty($_POST['comment'])) {
+                // Sécurisation des valeurs transmise par l'utilisateur:
+                // Suppression des espaces inutiles
+                $userName = trim($_POST['userName']);
+                $comment = trim($_POST['comment']);
+                // Suppression des antislashes 
+                $userName = stripslashes($_POST['userName']);
+                $comment = stripslashes($_POST['comment']);
+                // Suppression des caractères spéciaux tel que les chevrons > & <
+                $userName = htmlspecialchars($_POST['userName']);
+                $comment = htmlspecialchars($_POST['comment']);
+                $id = intval($_GET["id"]);
+                addNewComment($id, $userName, $comment);
+            }
+        }
+    } 
+
     //Affichage de la page Accueil
     if($_GET["action"] === "accueil"){
         // Appel de la fonction accueil() dans le controller Front. 
         accueil();
     }
+
+ /// ------------------------------- Router LogIn ------------------------------- ///  
 
     // Affichage de la page login
     if($_GET["action"] === "login"){
@@ -54,33 +84,9 @@ require('src/Controllers/ControllerBack.php');
                 }
             }
         }
-
-    // Achichage d'un article précis grace à son ID.     
-    if($_GET["action"] === "article"){
-        if(isset($_GET["id"])) {
-            $id = intval($_GET["id"]);
-            singlePost($id);
-        }
-        //Si l'utilisateur envoie un commentaire
-        if(isset($_POST['submit_comment'])){
-            // Si les champs existent et qu'ils ne sont pas vides.
-            if(isset($_POST['userName'], $_POST['comment']) AND !empty($_POST['userName']) AND !empty($_POST['comment'])) {
-                // Sécurisation des valeurs transmise par l'utilisateur:
-                // Suppression des espaces inutiles
-                $userName = trim($_POST['userName']);
-                $comment = trim($_POST['comment']);
-                // Suppression des antislashes 
-                $userName = stripslashes($_POST['userName']);
-                $comment = stripslashes($_POST['comment']);
-                // Suppression des caractères spéciaux tel que les chevrons > & <
-                $userName = htmlspecialchars($_POST['userName']);
-                $comment = htmlspecialchars($_POST['comment']);
-                $id = intval($_GET["id"]);
-                addNewComment($id, $userName, $comment);
-            }
-        }
-    } 
     
+ /// ------------------------------- Router BACK ------------------------------- ///  
+
     // Affichage du dashboard pour l'administrateur. 
     if($_GET["action"] === "dashboard"){
         // Appel de la fonction dashboard() dans le controller Back. 
@@ -112,12 +118,47 @@ require('src/Controllers/ControllerBack.php');
         }
     }
 
-
     // Affichage de la page modifier les articles dans le dashboard administrateur. 
     if($_GET["action"] === "modifyArticle"){
         // Appel de la fonction modifyArticle() dans le controller Back. 
         modifyArticle();
     }
+
+    // Affichage de l'article en mode Edition dans le dashboard administrateur.
+    if($_GET["action"] === "addModificationArticle"){
+        if(isset($_GET["id"])) {
+            $id = intval($_GET["id"]);
+            addModificationArticle($id);
+        }
+    }
+
+    // Ajout/Submit d'une modification d'un article par l'administrateur.
+    if($_GET["action"] === "newModificationArticle"){
+            if(isset($_POST['submit_modificationArticle']) AND isset($_GET["id"])){
+                $id = intval($_GET["id"]);
+                // Si les champs existent et qu'ils ne sont pas vides.
+                if(isset($_POST['titleModificationPost'], $_POST['contentAddModificationArticle']) AND !empty($_POST['titleModificationPost']) AND !empty($_POST['contentAddModificationArticle'])) {                       
+                    // Sécurisation des valeurs transmise par l'utilisateur:
+                    // Suppression des espaces inutiles
+                    $titleModificationPost = trim($_POST['titleModificationPost']);
+                    $contentAddModificationArticle = trim($_POST['contentAddModificationArticle']);
+                    // Suppression des antislashes 
+                    $titleModificationPost = stripslashes($_POST['titleModificationPost']);
+                    $contentAddModificationArticle = stripslashes($_POST['contentAddModificationArticle']);
+                    // Appel de la fonction addNewUpdatePost() dans le controller Back.                     
+                    addNewUpdatePost($titleModificationPost, $contentAddModificationArticle, $id);
+                }
+            }
+    }
+
+    // Suppresion d'un article 
+    if($_GET["action"] === "deleteArticle"){
+        if(isset($_GET["id"])) {
+            $id = intval($_GET["id"]);
+            deleteThisArticle($id);
+        }
+    }
+
 
     // Affichage de la page modérer les commentaires dans le dashboard administrateur. 
     if($_GET["action"] === "moderateComments"){

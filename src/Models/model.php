@@ -64,6 +64,26 @@ function addPost($newTitle, $newContent)
     return $ins;
 }
 
+// Modification d'un article
+function addUpdatePost($updateTitle, $updateContent, $id)
+{
+    $db = dbConnect();
+    $update = $db->prepare('UPDATE articles SET title=?, content=?, creation_date=NOW() WHERE id=?');
+    $update->execute(array($updateTitle, $updateContent, $id));
+    
+    return $update;
+}
+
+//Suppression d'un article
+function deleteArticle($id)
+{
+    $db = dbConnect();
+    $req = $db->prepare('DELETE FROM articles WHERE id = ?');
+    $req->execute(array($id));
+
+    return $req;
+
+}
 
 // Récupération des commentaires d'un article.
 function getComments($postId)
