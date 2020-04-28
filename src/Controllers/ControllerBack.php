@@ -4,7 +4,9 @@
 function dashboard(){
     // Si l'administrateur à ouvert une Session, il a accès au dashboard. 
     if(isset($_SESSION['userid'])){
-    require ('src/Views/Back/viewHomeDashboard.php');
+        //Nombre de commentaires signalés
+        $newCountSignaledComments = countSignaledComments();
+        require ('src/Views/Back/viewHomeDashboard.php');
     }
     // Si un utilisateur tente d'accéder au backoffice sans être connecté -> retour accueil. 
     else {
@@ -102,7 +104,7 @@ function addNewUpdatePost($titleModificationPost, $contentAddModificationArticle
 
 // Suppression d'un article.
 function deleteThisArticle($id){
-    // Si l'administrateur à ouvert une Session, il peut modifier son article. 
+    // Si l'administrateur à ouvert une Session, il peut supprimer son article. 
     if(isset($_SESSION['userid'])){
 
         $newDeleteArticle = deleteArticle($id);
@@ -126,6 +128,8 @@ function moderateComments(){
     // Si l'administrateur à ouvert une Session, il a accès à la page. 
     if(isset($_SESSION['userid'])){
         $comments = getAllComments();
+        $signaledComments = getAllSignaledComments();
+        $newCountSignaledComments = countSignaledComments(); 
         require ('src/Views/Back/viewCommentsModeration.php');
         }
         // Si un utilisateur tente d'accéder au backoffice sans être connecté -> retour accueil.
@@ -135,3 +139,42 @@ function moderateComments(){
         }
 }
 
+function validateThisComment($isSignaled, $commentId){
+    // Si l'administrateur à ouvert une Session, il peut valider un commentaire. 
+    if(isset($_SESSION['userid'])){
+
+        $newValidateComment = validateComment($isSignaled, $commentId);
+    
+        if($newValidateComment){
+        header('location: ./index.php?action=moderateComments');
+        exit;
+        }
+    }
+    // Si un utilisateur tente de valider un commentaire sans être connecté -> retour accueil.
+    else {
+        header('location: ./index.php?action=accueil');
+        exit;
+    }        
+}
+
+
+
+// Suppression d'un Commentaire
+function deleteThisComment($id){
+    // Si l'administrateur à ouvert une Session, il peut supprimer un commentaire. 
+    if(isset($_SESSION['userid'])){
+
+        $newDeleteComment = deleteComment($id);
+
+        if($newDeleteComment){
+            header('location: ./index.php?action=moderateComments');
+            exit;
+        }
+
+    } 
+    // Si un utilisateur tente de supprimer un commentaire sans être connecté -> retour accueil.
+    else {
+        header('location: ./index.php?action=accueil');
+        exit;
+    }    
+}
