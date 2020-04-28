@@ -44,6 +44,7 @@ function getCheckLogin($checkEmailAdmin, $checkPwdAdmin){
     } 
     // Si $newLogin renvoie true. Les identifiants corespondent, l'utilisateur peut avoir accès au dashboard
     else {
+        $newCountSignaledComments = countSignaledComments();
         require ('src/Views/Back/viewHomeDashboard.php');
     }
 
@@ -73,4 +74,14 @@ function addNewComment($id, $userName, $comment){
     $newComment = addComment($id, $userName, $comment);
 }
    
+
+function signalThisComment($isSignaled, $articleId, $commentId){
+    $newSignalement = signalComment($isSignaled, $commentId);
+
+    if($newSignalement){
+        header('location: ./index.php?action=article&id='.$articleId.'');
+        exit;
+    }
+
+}
 
