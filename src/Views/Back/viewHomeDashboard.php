@@ -62,8 +62,16 @@
     <p class="text-center">Mettez à jour simplement votre blog grâce à cette interface d'administration. Vous serez ici en mesure de créer des nouveaux articles, de modifier ou supprimer vos articles déjà postés, restez attentif en modérant les commentaires déposés par vos visiteurs, le tout grâce à votre boite à outils...Enjoi !</p>
     <div class="line"></div>
 
-    
+    <!-- Information sur le nombre de commentaires signalés  -->
+    <?php
+      if($newCountSignaledComments == 0){
+        
+        require('viewInformationSucessDashboard.php');
 
+      } else{
+        require('viewInformationDangerDashboard.php');
+      }
+    ?>
 
   </div>
 

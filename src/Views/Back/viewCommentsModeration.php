@@ -22,10 +22,10 @@
         <li>
             <a href="index.php?action=addArticle">Créer un article</a>
         </li>
-        <li class="active">
+        <li>
             <a href="index.php?action=modifyArticle">Editer vos articles</a>
         </li>
-        <li>
+        <li class="active">
             <a href="index.php?action=moderateComments">Modérer les commentaires</a>
         </li>
     </ul>
@@ -62,8 +62,63 @@
         <p class="text-center">Modération des commentaires</p>
         <div class="line"></div>
 
+        <?php
+        if($newCountSignaledComments == 0){
+           echo'<h4 class="text-center">Aucun commentaire signalé</h4>';
+        }
+        else{
+           echo'<h4 class="text-center">Liste des commentaires signalés:</h4>';
+        }
+        ?>    
+        <!-- Tableau de tous les commentaires Signalés -->
+        <div class="container">
+            <div class="row d-flex justify-content-center text-center">
+                <div class="col-12">
+                <table class="table table-striped table-bordered">
+                    <thead>
+                    <tr>
+                        <th scope="col">Article</th>
+                        <th scope="col ">Commentaires signalés</th>
+                        <th scope="col">Lire / Valider / Supprimer</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <?php 
+                    // Requête des commentaires Signalés
+                    while ($signaledComment = $signaledComments->fetch()) {
+                    ?>
+
+                    <tr>
+                        <td>
+                            <?php echo htmlspecialchars($signaledComment['articleid']); ?>
+                        </td>
+                        <td>
+                            "<?php echo htmlspecialchars($signaledComment['comment']); ?>" écrit par <?php echo htmlspecialchars($signaledComment['author']); ?> <?php echo htmlspecialchars(" et publié le " . $signaledComment['day_post']); ?>
+                        </td>
+                        <td>
+                            <a href="index.php?action=article&id=<?= $signaledComment['articleid']; ?>" target = "_blank"><button type="button" class="btn btn-outline-primary btn-sm" title="Voir le commentaire"><i class="fas fa-eye"></i></button></a>
+                            <a href="index.php?action=validateThisComment&id=<?= $signaledComment['id']; ?>"><button type="button" class="btn btn-outline-success btn-sm" title="Valider ce commentaire"><i class="fas fa-check-circle"></i></button></a>
+                            <a href="index.php?action=deleteComment&id=<?= $signaledComment['id']; ?>" onClick='return confirmation();'><button type="button" class="btn btn-outline-danger btn-sm" title="Supprimer ce commentaire"><i class="fas fa-trash"></i></button></a>
+                        </td>
+                    </tr>
+
+                    <?php
+                    };
+                    $signaledComments->closeCursor(); // Termine le traitement de la requête
+                    ?>
+
+                    </tbody>
+                </table>
+                </div>
+            </div>
+        </div>
+        
+        <div class="line"></div>
+
         <h4 class="text-center">Liste des commentaires par date de publication:</h4>
 
+        <!-- Tableau de tous les commentaires du blog -->              
         <div class="container">
             <div class="row d-flex justify-content-center text-center">
                 <div class="col-12">
@@ -78,6 +133,7 @@
                     <tbody>
 
                     <?php
+                    // Requête tous les commentaires du blogs. 
                     while ($comment = $comments->fetch()) {
                     ?>
 
@@ -85,8 +141,8 @@
                         <td><?php echo htmlspecialchars($comment['articleid']); ?></td>
                         <td>"<?php echo htmlspecialchars($comment['comment']); ?>" écrit par <?php echo htmlspecialchars($comment['author']); ?> <?php echo htmlspecialchars(" et publié le " . $comment['day_post']); ?></td>
                         <td>
-                        <button type="button" class="btn btn-outline-primary btn-sm"><i class="fas fa-eye"></i></button>
-                        <button type="button" class="btn btn-outline-danger btn-sm"><i class="fas fa-trash"></i></button>
+                        <a href="index.php?action=article&id=<?= $comment['articleid']; ?>" target = "_blank"><button type="button" class="btn btn-outline-primary btn-sm" title="Voir ce commentaire"><i class="fas fa-eye"></i></button></a>
+                        <a href="index.php?action=deleteComment&id=<?= $comment['id']; ?>" onClick='return confirmation();'><button type="button" class="btn btn-outline-danger btn-sm" title="Supprimer ce commentaire"><i class="fas fa-trash"></i></button></a>
                         </td>
                     </tr>
 
@@ -108,7 +164,7 @@
 
 <div class="overlay"></div>
 
-<?php require('src/Views/Front/footer.php'); ?>
+<script type="text/javascript" src="src/Assets/ressources/js/deleteCommentConfirmation.js"></script>
 
 <?php $content = ob_get_clean(); ?>
 

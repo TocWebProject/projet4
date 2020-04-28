@@ -200,8 +200,8 @@ a.deconnexion:hover {
   right: 0;
 }
 
-/* --- Button Custom on AddArticle --*/
-.submitArticle{
+/* --- Button Custom on AddArticle and Dashboard Moderation --*/
+.submitArticle, .moderateComment{
   background-color: rgb(204, 178, 121) !important;
 }
 

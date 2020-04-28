@@ -85,9 +85,9 @@
                         <th scope="row d-flex justify-content-center"><?php echo htmlspecialchars($post['title']); ?></th>
                         <td><p><?php echo htmlspecialchars(extractContent($post['content'], 40)); ?></p></td>
                         <td>
-                        <a href="index.php?action=article&id=<?= $post['id']; ?>"><button type="button" class="btn btn-outline-primary btn-sm"><i class="fas fa-eye"></i></button></a>
-                        <a href="index.php?action=addModificationArticle&id=<?= $post['id']; ?>"><button type="button" class="btn btn-outline-success btn-sm"><i class="fas fa-edit"></i></button></a>
-                        <a href="index.php?action=deleteArticle&id=<?= $post['id']; ?>" onClick='return confirmation();'><button type="button" class="btn btn-outline-danger btn-sm"><i class="fas fa-trash"></i></button></a>
+                        <a href="index.php?action=article&id=<?= $post['id']; ?>" target = "_blank"><button type="button" class="btn btn-outline-primary btn-sm" title="Voir l'article"><i class="fas fa-eye"></i></button></a>
+                        <a href="index.php?action=addModificationArticle&id=<?= $post['id']; ?>"><button type="button" class="btn btn-outline-success btn-sm" title="Modifier l'article"><i class="fas fa-edit"></i></button></a>
+                        <a href="index.php?action=deleteArticle&id=<?= $post['id']; ?>" onClick='return confirmation();'><button type="button" class="btn btn-outline-danger btn-sm" title="Supprimer l'article"><i class="fas fa-trash"></i></button></a>
                         </td>
                     </tr>
 
@@ -109,7 +109,7 @@
 
 <div class="overlay"></div>
 
-<script type="text/javascript" src="src/Assets/ressources/js/deleteConfirmation.js"></script>
+<script type="text/javascript" src="src/Assets/ressources/js/deleteArticleConfirmation.js"></script>
 
 <?php $content = ob_get_clean(); ?>
 
