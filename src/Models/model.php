@@ -54,6 +54,26 @@ function addComment($postId, $author, $insertComment)
 
 }
 
+// Modération d'un commentaire
+function signalComment($isSignaled, $id)
+{
+    $db = dbConnect();
+    $signal = $db->prepare('UPDATE comments SET isSignaled=? WHERE id=?');
+    $signal->execute(array($isSignaled, $id));
+    
+    return $signal;
+}
+
+// Validation d'un commentaire signalé
+function validateComment($isSignaled, $id)
+{
+    $db = dbConnect();
+    $validate = $db->prepare('UPDATE comments SET isSignaled=? WHERE id=?');
+    $validate->execute(array($isSignaled, $id));
+    
+    return $validate;
+}
+
 // Ajout d'un article
 function addPost($newTitle, $newContent)
 {
@@ -89,7 +109,7 @@ function deleteArticle($id)
 function getComments($postId)
 {
     $db = dbConnect();
-    $comments = $db->prepare('SELECT id, author, comment, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%imin%ss\') AS day_post FROM comments WHERE articleid = ? ORDER BY comment_date DESC');
+    $comments = $db->prepare('SELECT id, author, comment, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%imin%ss\') AS day_post, isSignaled FROM comments WHERE articleid = ? ORDER BY comment_date DESC');
     $comments->execute(array($postId));
 
     return $comments;
@@ -99,11 +119,45 @@ function getComments($postId)
 function getAllComments() 
 {
     $db = dbConnect();
-    $allComments = $db -> query('SELECT id, articleid, author, comment, DATE_FORMAT(comment_date, \'%d/%m/%Y\') AS day_post FROM comments ORDER BY comment_date DESC');
+    $allComments = $db->query('SELECT id, articleid, author, comment, DATE_FORMAT(comment_date, \'%d/%m/%Y\') AS day_post, isSignaled FROM comments ORDER BY comment_date DESC');
 
     return $allComments;
 
 } 
+
+// Récupération de tous les commentaires signalés du blog
+function getAllSignaledComments() 
+{
+    $db = dbConnect();
+    $allSignaledComments = $db->query('SELECT id, articleid, author, comment, DATE_FORMAT(comment_date, \'%d/%m/%Y\') AS day_post, isSignaled FROM comments WHERE isSignaled = true ORDER BY comment_date DESC');
+
+    return $allSignaledComments;
+
+} 
+
+//Compteur de commentaires signalés sur le blog
+
+function countSignaledComments(){
+    $db = dbConnect();
+    $countSignaledComments = $db->query('SELECT COUNT(isSignaled) FROM comments')->fetchColumn();
+    
+    return $countSignaledComments;
+    
+}
+
+
+
+
+//Suppression d'un Commentaire
+function deleteComment($id)
+{
+    $db = dbConnect();
+    $req = $db->prepare('DELETE FROM comments WHERE id = ?');
+    $req->execute(array($id));
+
+    return $req;
+
+}
 
 // Check Login
 function checkLogin($mail, $pwd)
