@@ -71,7 +71,6 @@
                     <!-- Post Content -->                
                     <?php echo $post['content']; ?>
         
-
                     <hr>
                     <!-- Background Image Parallax -->
                     <div class="parallax">
@@ -101,12 +100,10 @@
                 </div>
         
 
-                <?php
-                    
-                    while ($comment = $comments->fetch()) {
-                        ?>
-
-
+                <?php  
+                  
+                while ($comment = $comments->fetch()) {
+                ?>
 
                 <!-- Single Comment -->
                 <div class="media mb-4 comment">
@@ -114,7 +111,14 @@
                         <h5 class="mt-0"><?php echo htmlspecialchars($comment['author']); ?></h5>
                         <p class="comment_date"><?php echo htmlspecialchars(" Publié le " . $comment['day_post']); ?></p>
                         <p><?php echo htmlspecialchars($comment['comment']); ?></p>
-                        <a href="#" method="post">Signaler ce commentaire</a>
+                        <?php
+                            if($comment['isSignaled'] == true) {
+                                echo '<div class="red-text">Ce commentaire a été signalé</div>';
+                            }
+                            else{
+                                echo '<a href="./index.php?action=signalThisComment&id='.$comment['id'].'&articleId='.$post['id'].'" method="post">Signaler ce commentaire</a>';
+                            }     
+                        ?>                          
                     </div>
                 </div>
 
