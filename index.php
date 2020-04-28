@@ -42,6 +42,17 @@ require('src/Controllers/ControllerBack.php');
         }
     } 
 
+    // Signalement d'un commentaire
+    if($_GET["action"] === "signalThisComment"){
+        if(isset($_GET["id"], $_GET["articleId"])) {
+            $articleId = intval($_GET["articleId"]);
+            $commentId = intval($_GET["id"]);
+            $isSignaled = true;
+            // Appel de la fonction signalComment() dans le controller Front. 
+            signalThisComment($isSignaled, $articleId, $commentId);
+        }
+    }    
+
     //Affichage de la page Accueil
     if($_GET["action"] === "accueil"){
         // Appel de la fonction accueil() dans le controller Front. 
@@ -165,5 +176,26 @@ require('src/Controllers/ControllerBack.php');
         // Appel de la fonction moderateComments() dans le controller Back. 
         moderateComments();
     }
+
+    // Valider un commentaire signalé
+    if($_GET["action"] === "validateThisComment"){
+        if(isset($_GET["id"])) {
+            $commentId = intval($_GET["id"]);
+            $isSignaled = NULL;
+            // Appel de la fonction signalComment() dans le controller Front. 
+            validateThisComment($isSignaled, $commentId);
+        }
+    }        
+
+    // Suppresion d'un commentaire 
+    if($_GET["action"] === "deleteComment"){
+        if(isset($_GET["id"])) {
+            $id = intval($_GET["id"]);
+            deleteThisComment($id);
+        }
+    }    
+
+
+
 
 }
