@@ -1,11 +1,19 @@
 <?php
 
+//Chargement des classes
+require_once('src/Models/PostManager.php');
+require_once('src/Models/CommentManager.php');
+require_once('src/Models/AdminManager.php');
+
+// ------------------------------- Dashboard -------------------------------
+
 // Affichage du dashboard pour l'administrateur. 
 function dashboard(){
     // Si l'administrateur à ouvert une Session, il a accès au dashboard. 
     if(isset($_SESSION['userid'])){
         //Nombre de commentaires signalés
-        $newCountSignaledComments = countSignaledComments();
+        $commentManager = new CommentManager();
+        $newCountSignaledComments = $commentManager->countSignaledComments();
         require ('src/Views/Back/viewHomeDashboard.php');
     }
     // Si un utilisateur tente d'accéder au backoffice sans être connecté -> retour accueil. 
@@ -33,8 +41,8 @@ function addArticle(){
 function addNewPost($titleNewPost, $contentNewPost){
     // Si l'administrateur à ouvert une Session, il peut ajouter un nouvel article. 
     if(isset($_SESSION['userid'])){
-    
-        $newPost = addPost($titleNewPost, $contentNewPost);
+        $postManager = new PostManager();
+        $newPost = $postManager->addPost($titleNewPost, $contentNewPost);
         
         // Si l'article a été posté -> redirection vers la liste des articles dans le dashboard. 
         if($newPost){
@@ -54,7 +62,9 @@ function addNewPost($titleNewPost, $contentNewPost){
 function modifyArticle(){
     // Si l'administrateur à ouvert une Session, il a accès à la page. 
     if(isset($_SESSION['userid'])){
-        $posts = getPosts();
+        $postManager = new PostManager();
+        $posts = $postManager->getPosts();
+
         require ('src/Views/Back/viewModifyArticleDashboard.php');
         }
         // Si un utilisateur tente d'accéder au backoffice sans être connecté -> retour accueil.
@@ -69,7 +79,8 @@ function addModificationArticle($id){
     // Si l'administrateur à ouvert une Session, il a accès à la page.
     if(isset($_SESSION['userid'])){
         if (isset($id) && $id > 0) {
-            $post = getPost($id);
+            $postManager = new PostManager();
+            $post = $postManager->getPost($id);
             require ('src/Views/Back/viewAddModificationArticle.php');
         }
     }
@@ -83,8 +94,8 @@ function addModificationArticle($id){
 function addNewUpdatePost($titleModificationPost, $contentAddModificationArticle, $id){
     // Si l'administrateur à ouvert une Session, il peut modifier son article. 
     if(isset($_SESSION['userid'])){
-
-        $updatePost = addUpdatePost($titleModificationPost, $contentAddModificationArticle, $id);
+        $postManager = new PostManager();
+        $updatePost = $postManager->addUpdatePost($titleModificationPost, $contentAddModificationArticle, $id);
         
         // Si l'article a été modifié -> redirection vers la liste des articles dans le dashboard. 
         if($updatePost){
@@ -106,8 +117,8 @@ function addNewUpdatePost($titleModificationPost, $contentAddModificationArticle
 function deleteThisArticle($id){
     // Si l'administrateur à ouvert une Session, il peut supprimer son article. 
     if(isset($_SESSION['userid'])){
-
-        $newDeleteArticle = deleteArticle($id);
+        $postManager = new PostManager();
+        $newDeleteArticle = $postManager->deleteArticle($id);
 
         if($newDeleteArticle){
             header('location: ./index.php?action=modifyArticle');
@@ -127,9 +138,11 @@ function deleteThisArticle($id){
 function moderateComments(){
     // Si l'administrateur à ouvert une Session, il a accès à la page. 
     if(isset($_SESSION['userid'])){
-        $comments = getAllComments();
-        $signaledComments = getAllSignaledComments();
-        $newCountSignaledComments = countSignaledComments(); 
+        $commentManager = new CommentManager();
+        $comments = $commentManager->getAllComments();
+        $signaledComments = $commentManager->getAllSignaledComments();
+        $newCountSignaledComments = $commentManager->countSignaledComments(); 
+
         require ('src/Views/Back/viewCommentsModeration.php');
         }
         // Si un utilisateur tente d'accéder au backoffice sans être connecté -> retour accueil.
@@ -142,8 +155,8 @@ function moderateComments(){
 function validateThisComment($isSignaled, $commentId){
     // Si l'administrateur à ouvert une Session, il peut valider un commentaire. 
     if(isset($_SESSION['userid'])){
-
-        $newValidateComment = validateComment($isSignaled, $commentId);
+        $commentManager = new CommentManager();
+        $newValidateComment = $commentManager->validateComment($isSignaled, $commentId);
     
         if($newValidateComment){
         header('location: ./index.php?action=moderateComments');
@@ -163,8 +176,8 @@ function validateThisComment($isSignaled, $commentId){
 function deleteThisComment($id){
     // Si l'administrateur à ouvert une Session, il peut supprimer un commentaire. 
     if(isset($_SESSION['userid'])){
-
-        $newDeleteComment = deleteComment($id);
+        $commentManager = new CommentManager();
+        $newDeleteComment = $commentManager->deleteComment($id);
 
         if($newDeleteComment){
             header('location: ./index.php?action=moderateComments');
