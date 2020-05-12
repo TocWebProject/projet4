@@ -5,6 +5,7 @@ require_once('src/Models/PostManager.php');
 require_once('src/Models/CommentManager.php');
 require_once('src/Models/AdminManager.php');
 
+
 // Affichage de la liste des articles du blog. 
 function blog()
 {
@@ -32,9 +33,16 @@ function getExtractContent($string, $max_length)
     return $newExtract;
 }
 
+// Affichage de la page 404  
+function error(){
+    require ('src/Views/Front/404.php');
+}
+
 // Affichage de la page LogIn si l'administrateur n'est pas déja connecté. 
 function login(){
     if(isset($_SESSION['userid'])){
+        $commentManager = new CommentManager();
+        $newCountSignaledComments = $commentManager->countSignaledComments();
         require ('src/Views/Back/viewHomeDashboard.php');
     }
     else {
@@ -57,8 +65,8 @@ function extractContent($string, $max_length)
 // Vérification des identifiants dans le model avec l'appel de la fonction checkLogin dans le Model.
 function getCheckLogin($checkEmailAdmin, $checkPwdAdmin)
 {
+  
     $adminManager = new AdminManager();
-    $commentManager = new CommentManager();
     $newLogIn = $adminManager->checkLogin($checkEmailAdmin, $checkPwdAdmin);
 
     // Si le Model renvoie false - Il y a une erreur
@@ -66,10 +74,10 @@ function getCheckLogin($checkEmailAdmin, $checkPwdAdmin)
         $errors = 'Email ou mot de passe invalide';
         require ('src/Views/Front/viewLogIn.php');
     } 
-    // Si $newLogin renvoie true. Les identifiants corespondent, l'utilisateur peut avoir accès au dashboard
+    // Si $newLogin renvoie true. Les identifiants corespondent, l'utilisateur peut avoir accès au dashboard avec le nombre de commentaires signalés. 
     else {
-        $newCountSignaledComments = $commentManager->countSignaledComments();
-        require ('src/Views/Back/viewHomeDashboard.php');
+        header('location: ./index.php?action=dashboard');
+        exit;
     }
 }
 
@@ -89,11 +97,15 @@ function singlePost($id)
     if (isset($id) && $id > 0) {
         $post = $postManager->getPost($id);
         $comments = $commentManager->getComments($id);
-        require ('src/Views/Front/viewSingleArticle.php');
+        // Si l'id de l'article n'existe pas -> renvoie Erreur 404
+        if ($post === false){
+            require ('src/Views/Front/404.php');
+        // Si l'id de l'article existe bien -> Affichage de l'article
+        }else{
+            require ('src/Views/Front/viewSingleArticle.php');
+        }
     }
-    else {
-        echo 'Erreur : aucun identifiant de billet envoyé';
-    }  
+
 }
 
 // Insertion d'un commentaire dans un article précis. Appel de la fonction addComment() dans le Model. 

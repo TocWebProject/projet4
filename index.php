@@ -59,6 +59,12 @@ require('src/Controllers/ControllerBack.php');
         accueil();
     }
 
+    // Affichage de la page 404 
+    if($_GET["action"] === "404"){
+        // Appel de la fonction error() dans le controller Front. 
+        error();
+    }
+
  /// ------------------------------- Router LogIn ------------------------------- ///  
 
     // Affichage de la page login
@@ -91,9 +97,8 @@ require('src/Controllers/ControllerBack.php');
                     $checkPwdAdmin = htmlspecialchars($_POST['pwdAdmin']);
                     // Appel de la fonction Vérification LogIn dans le controller Back. 
                     getCheckLogin($checkEmailAdmin, $checkPwdAdmin);
-    
                 }
-            }
+            } 
         }
     
  /// ------------------------------- Router BACK ------------------------------- ///  
@@ -125,6 +130,9 @@ require('src/Controllers/ControllerBack.php');
                 $contentNewPost = stripslashes($_POST['contentNewPost']);
                 // Appel de la fonction addNewPost() dans le controller Back. 
                 addNewPost($titleNewPost,$contentNewPost);
+            }else{
+                $errors = "Veuillez remplir tous les champs du formulaire";
+                errorAddNewPost($errors);
             }
         }
     }
@@ -158,6 +166,11 @@ require('src/Controllers/ControllerBack.php');
                     $contentAddModificationArticle = stripslashes($_POST['contentAddModificationArticle']);
                     // Appel de la fonction addNewUpdatePost() dans le controller Back.                     
                     addNewUpdatePost($titleModificationPost, $contentAddModificationArticle, $id);
+                }
+                // Si un des champs n'est pas correctement renseigné. 
+                else{
+                    $errors = "Veuillez remplir tous les champs du formulaire";
+                    errorAddNewUpdatePost($errors, $id);
                 }
             }
     }
@@ -193,9 +206,9 @@ require('src/Controllers/ControllerBack.php');
             $id = intval($_GET["id"]);
             deleteThisComment($id);
         }
-    }    
-
-
-
-
+    }  
+    
+} else{
+    accueil();
 }
+

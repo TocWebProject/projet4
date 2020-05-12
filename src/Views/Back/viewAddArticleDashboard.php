@@ -81,6 +81,7 @@
                           <label class="col-md-3 control-label" for="contentNewPost">Votre texte</label>
                           <div class="col-md-12">
                             <textarea aria-label="content" class="form-control" id="contentNewPost" name="contentNewPost" placeholder="Déposer le nouvel épisode ici..." rows="16" cols="100" type="text"></textarea>
+                            <div class="red-text"><?php if(isset($errors)){echo $errors;} ?></div>
                           </div>
                         </div>
                 

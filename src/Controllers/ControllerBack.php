@@ -30,17 +30,18 @@ function addArticle(){
     // Si l'administrateur à ouvert une Session, il a accès à la page.  
     if(isset($_SESSION['userid'])){
         require ('src/Views/Back/viewAddArticleDashboard.php');
-        }
-        // Si un utilisateur tente d'accéder au backoffice sans être connecté -> retour accueil. 
-        else {
-            header('location: ./index.php?action=accueil');
-            exit;
-        }
+    }
+    // Si un utilisateur tente d'accéder au backoffice sans être connecté -> retour accueil. 
+    else {
+        header('location: ./index.php?action=accueil');
+        exit;
+    }
 }
 
 function addNewPost($titleNewPost, $contentNewPost){
     // Si l'administrateur à ouvert une Session, il peut ajouter un nouvel article. 
     if(isset($_SESSION['userid'])){
+
         $postManager = new PostManager();
         $newPost = $postManager->addPost($titleNewPost, $contentNewPost);
         
@@ -55,6 +56,12 @@ function addNewPost($titleNewPost, $contentNewPost){
         header('location: ./index.php?action=accueil');
         exit;
     }   
+}
+
+function errorAddNewPost($errors){
+    if(isset($_SESSION['userid'])){
+        require ('src/Views/Back/viewAddArticleDashboard.php');
+    }
 }
 
 
@@ -78,6 +85,7 @@ function modifyArticle(){
 function addModificationArticle($id){
     // Si l'administrateur à ouvert une Session, il a accès à la page.
     if(isset($_SESSION['userid'])){
+
         if (isset($id) && $id > 0) {
             $postManager = new PostManager();
             $post = $postManager->getPost($id);
@@ -101,16 +109,25 @@ function addNewUpdatePost($titleModificationPost, $contentAddModificationArticle
         if($updatePost){
             header('location: ./index.php?action=modifyArticle');
             exit;
-         } 
-        else{
+         }
+         else{
             echo 'Erreur';
-        }        
+        }    
     } 
     // Si un utilisateur tente de modifier un article sans être connecté -> retour accueil.
     else {
         header('location: ./index.php?action=accueil');
         exit;
     }   
+}
+
+function errorAddNewUpdatePost($errors, $id){
+    // Si l'administrateur à ouvert une Session, il peut modifier son article. 
+    if(isset($_SESSION['userid'])){
+        $postManager = new PostManager();
+        $post = $postManager->getPost($id);
+        require ('src/Views/Back/viewAddModificationArticle.php');
+    }
 }
 
 // Suppression d'un article.

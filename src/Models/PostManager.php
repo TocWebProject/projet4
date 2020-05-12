@@ -46,7 +46,7 @@ class PostManager
         $db = $this->dbConnect();
         $update = $db->prepare('UPDATE articles SET title=?, content=?, creation_date=NOW() WHERE id=?');
         $update->execute(array($updateTitle, $updateContent, $id));
-        
+
         return $update;
     }
 

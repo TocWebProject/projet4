@@ -81,6 +81,7 @@
                           <label class="col-md-3 control-label" for="contentAddModificationArticle">Votre texte</label>
                           <div class="col-md-12">
                             <textarea aria-label="content" class="form-control" id="contentAddModificationArticle" name="contentAddModificationArticle" rows="16" cols="100" type="text"><?php echo $post['content']; ?></textarea>
+                            <div class="red-text"><?php if(isset($errors)){echo $errors;} ?></div>
                           </div>
                         </div>
                 
