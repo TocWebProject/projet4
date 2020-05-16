@@ -5,24 +5,25 @@ session_start();
 require('src/Controllers/ControllerFront.php');
 require('src/Controllers/ControllerBack.php');
 
+if(empty($_GET['action']) AND $_GET !== 'action'){
+    accueil();
+}
 
-/// ------------------------------- Router Front ------------------------------- ///
-
- if(isset($_GET["action"])) {
-
+switch ($_GET['action']) {
+    /// ------------------------------- Router Front ------------------------------- ///
     // Affichage de la liste des articles. 
-    if($_GET["action"] === "blog"){
-        // Appel de la fonction blog() dans le controller Front. 
+    case 'blog' :
+        // Appel de la fonction blog() dans le controller Front.
         blog();
-    }
-
-    // Affichage d'un article précis grace à son ID.     
-    if($_GET["action"] === "article"){
-        if(isset($_GET["id"])) {
-            $id = intval($_GET["id"]);
+        break;
+    // Affichage d'un article précis grace à son ID.    
+    case 'article' :
+        if (isset($_GET['id']) && $_GET['id'] > 0) {
+            $id = intval($_GET['id']);
             singlePost($id);
+        }else{
+            error();
         }
-        //Si l'utilisateur envoie un commentaire
         if(isset($_POST['submit_comment'])){
             // Si les champs existent et qu'ils ne sont pas vides.
             if(isset($_POST['userName'], $_POST['comment']) AND !empty($_POST['userName']) AND !empty($_POST['comment'])) {
@@ -36,88 +37,74 @@ require('src/Controllers/ControllerBack.php');
                 // Suppression des caractères spéciaux tel que les chevrons > & <
                 $userName = htmlspecialchars($_POST['userName']);
                 $comment = htmlspecialchars($_POST['comment']);
-                $id = intval($_GET["id"]);
+                $id = intval($_GET['id']);
                 addNewComment($id, $userName, $comment);
             }
         }
-    } 
-
-    // Signalement d'un commentaire
-    if($_GET["action"] === "signalThisComment"){
-        if(isset($_GET["id"], $_GET["articleId"])) {
-            $articleId = intval($_GET["articleId"]);
-            $commentId = intval($_GET["id"]);
+        break;
+    // Signalement d'un commentaire    
+    case 'signalThisComment' :
+        if(isset($_GET['id'], $_GET['articleId'])) {
+            $articleId = intval($_GET['articleId']);
+            $commentId = intval($_GET['id']);
             $isSignaled = true;
             // Appel de la fonction signalComment() dans le controller Front. 
             signalThisComment($isSignaled, $articleId, $commentId);
+        }else{
+            accueil();
         }
-    }    
-
+        break;
     //Affichage de la page Accueil
-    if($_GET["action"] === "accueil"){
-        // Appel de la fonction accueil() dans le controller Front. 
+    case 'accueil' :
         accueil();
-    }
-
+        break;
     // Affichage de la page 404 
-    if($_GET["action"] === "404"){
-        // Appel de la fonction error() dans le controller Front. 
+    case '404' :
         error();
-    }
-
- /// ------------------------------- Router LogIn ------------------------------- ///  
-
+        break;
+    /// ------------------------------- Router LogIn ------------------------------- /// 
     // Affichage de la page login
-    if($_GET["action"] === "login"){
-        // Appel de la fonction logIn() dans le controller Front. 
+    case 'login' :
         login();
-    }
-
+        break;
     // LogOut de l'administrateur. 
-    if($_GET["action"] === "logout"){
-        // Appel de la fonction logout() dans le controller Front. 
+    case 'logout' :
         logout();
-    }
-
+        break;
     // Vérification des identifiants de l'administrateur dans la vue logIn. 
-    if($_GET["action"] === "checkLogIn"){
-            //Si l'utilisateur envoie ses informations personnels via le btn submit. 
-            if(isset($_POST['submit_logIn'])){
-                // Si les champs existent et qu'ils ne sont pas vides.
-                if(isset($_POST['emailAdmin'], $_POST['pwdAdmin']) AND !empty($_POST['emailAdmin']) AND !empty($_POST['pwdAdmin'])) {
-                    // Sécurisation des valeurs transmise par l'utilisateur:
-                    // Suppression des espaces inutiles
-                    $checkEmailAdmin = trim($_POST['emailAdmin']);
-                    $checkPwdAdmin = trim($_POST['pwdAdmin']);
-                    // Suppression des antislashes 
-                    $checkEmailAdmin = stripslashes($_POST['emailAdmin']);
-                    $checkPwdAdmin = stripslashes($_POST['pwdAdmin']);
-                    // Suppression des caractères spéciaux tel que les chevrons > & <
-                    $checkEmailAdmin = htmlspecialchars($_POST['emailAdmin']);
-                    $checkPwdAdmin = htmlspecialchars($_POST['pwdAdmin']);
-                    // Appel de la fonction Vérification LogIn dans le controller Back. 
-                    getCheckLogin($checkEmailAdmin, $checkPwdAdmin);
-                }
-            } 
+    case 'checkLogIn' :
+        if(isset($_POST['submit_logIn'])){
+            // Si les champs existent et qu'ils ne sont pas vides.
+            if(isset($_POST['emailAdmin'], $_POST['pwdAdmin']) AND !empty($_POST['emailAdmin']) AND !empty($_POST['pwdAdmin'])) {
+                // Sécurisation des valeurs transmise par l'utilisateur:
+                // Suppression des espaces inutiles
+                $checkEmailAdmin = trim($_POST['emailAdmin']);
+                $checkPwdAdmin = trim($_POST['pwdAdmin']);
+                // Suppression des antislashes 
+                $checkEmailAdmin = stripslashes($_POST['emailAdmin']);
+                $checkPwdAdmin = stripslashes($_POST['pwdAdmin']);
+                // Suppression des caractères spéciaux tel que les chevrons > & <
+                $checkEmailAdmin = htmlspecialchars($_POST['emailAdmin']);
+                $checkPwdAdmin = htmlspecialchars($_POST['pwdAdmin']);
+                // Appel de la fonction Vérification LogIn dans le controller Back. 
+                getCheckLogin($checkEmailAdmin, $checkPwdAdmin);
+            }
         }
-    
- /// ------------------------------- Router BACK ------------------------------- ///  
-
-    // Affichage du dashboard pour l'administrateur. 
-    if($_GET["action"] === "dashboard"){
-        // Appel de la fonction dashboard() dans le controller Back. 
+        else{
+            login();
+        }
+        break;
+    /// ------------------------------- Router BACK ------------------------------- /// 
+    // Affichage du dashboard pour l'administrateur.  
+    case 'dashboard' :
         dashboard();
-    }
-
-    // Affichage de la page ajout d'article dans le dashboard administrateur. 
-    if($_GET["action"] === "addArticle"){
-        // Appel de la fonction addArticle() dans le controller Back. 
-        addArticle();        
-    }
-
+        break;
+    // Affichage de la page ajout d'article dans le dashboard administrateur.
+    case 'addArticle' :
+        addArticle();
+        break;
     // Ajout d'un nouvel article par l'administrateur
-    if($_GET["action"] === "addNewArticle"){
-        //Si l'administrateur crée un nouvel article
+    case 'addNewArticle' : 
         if(isset($_POST['submit_article'])){
             // Si les champs existent et qu'ils ne sont pas vides.
             if(isset($_POST['titleNewPost'], $_POST['contentNewPost']) AND !empty($_POST['titleNewPost']) AND !empty($_POST['contentNewPost'])) {                       
@@ -135,80 +122,87 @@ require('src/Controllers/ControllerBack.php');
                 errorAddNewPost($errors);
             }
         }
-    }
-
+        else{
+            accueil();
+        }
+        break;
     // Affichage de la page modifier les articles dans le dashboard administrateur. 
-    if($_GET["action"] === "modifyArticle"){
-        // Appel de la fonction modifyArticle() dans le controller Back. 
+    case 'modifyArticle' :
         modifyArticle();
-    }
-
+        break;
     // Affichage de l'article en mode Edition dans le dashboard administrateur.
-    if($_GET["action"] === "addModificationArticle"){
-        if(isset($_GET["id"])) {
-            $id = intval($_GET["id"]);
+    case 'addModificationArticle' :
+        if (isset($_GET['id']) && $_GET['id'] > 0) {
+            $id = intval($_GET['id']);
             addModificationArticle($id);
         }
-    }
-
+        else{
+            accueil();
+        }
+        break;
     // Ajout/Submit d'une modification d'un article par l'administrateur.
-    if($_GET["action"] === "newModificationArticle"){
-            if(isset($_POST['submit_modificationArticle']) AND isset($_GET["id"])){
-                $id = intval($_GET["id"]);
-                // Si les champs existent et qu'ils ne sont pas vides.
-                if(isset($_POST['titleModificationPost'], $_POST['contentAddModificationArticle']) AND !empty($_POST['titleModificationPost']) AND !empty($_POST['contentAddModificationArticle'])) {                       
-                    // Sécurisation des valeurs transmise par l'utilisateur:
-                    // Suppression des espaces inutiles
-                    $titleModificationPost = trim($_POST['titleModificationPost']);
-                    $contentAddModificationArticle = trim($_POST['contentAddModificationArticle']);
-                    // Suppression des antislashes 
-                    $titleModificationPost = stripslashes($_POST['titleModificationPost']);
-                    $contentAddModificationArticle = stripslashes($_POST['contentAddModificationArticle']);
-                    // Appel de la fonction addNewUpdatePost() dans le controller Back.                     
-                    addNewUpdatePost($titleModificationPost, $contentAddModificationArticle, $id);
-                }
-                // Si un des champs n'est pas correctement renseigné. 
-                else{
-                    $errors = "Veuillez remplir tous les champs du formulaire";
-                    errorAddNewUpdatePost($errors, $id);
-                }
+    case 'newModificationArticle' : 
+        if(isset($_POST['submit_modificationArticle']) AND (isset($_GET['id']) && $_GET['id'] > 0)){
+            $id = intval($_GET['id']);
+            // Si les champs existent et qu'ils ne sont pas vides.
+            if(isset($_POST['titleModificationPost'], $_POST['contentAddModificationArticle']) AND !empty($_POST['titleModificationPost']) AND !empty($_POST['contentAddModificationArticle'])) {                       
+                // Sécurisation des valeurs transmise par l'utilisateur:
+                // Suppression des espaces inutiles
+                $titleModificationPost = trim($_POST['titleModificationPost']);
+                $contentAddModificationArticle = trim($_POST['contentAddModificationArticle']);
+                // Suppression des antislashes 
+                $titleModificationPost = stripslashes($_POST['titleModificationPost']);
+                $contentAddModificationArticle = stripslashes($_POST['contentAddModificationArticle']);
+                // Appel de la fonction addNewUpdatePost() dans le controller Back.                     
+                addNewUpdatePost($titleModificationPost, $contentAddModificationArticle, $id);
             }
-    }
-
-    // Suppresion d'un article 
-    if($_GET["action"] === "deleteArticle"){
-        if(isset($_GET["id"])) {
-            $id = intval($_GET["id"]);
+            // Si un des champs n'est pas correctement renseigné. 
+            else{
+                $errors = "Veuillez remplir tous les champs du formulaire";
+                errorAddNewUpdatePost($errors, $id);
+            }
+        }
+        else{
+            accueil();
+        }
+        break;
+    // Suppresion d'un article  
+    case 'deleteArticle' : 
+        if (isset($_GET['id']) && $_GET['id'] > 0) {
+            $id = intval($_GET['id']);
             deleteThisArticle($id);
         }
-    }
-
-
+        else{
+            accueil();
+        }
+        break;
     // Affichage de la page modérer les commentaires dans le dashboard administrateur. 
-    if($_GET["action"] === "moderateComments"){
-        // Appel de la fonction moderateComments() dans le controller Back. 
+    case 'moderateComments' :
         moderateComments();
-    }
-
+        break;
     // Valider un commentaire signalé
-    if($_GET["action"] === "validateThisComment"){
-        if(isset($_GET["id"])) {
-            $commentId = intval($_GET["id"]);
+    case 'validateThisComment' :
+        if (isset($_GET['id']) && $_GET['id'] > 0) {
+            $commentId = intval($_GET['id']);
             $isSignaled = NULL;
             // Appel de la fonction signalComment() dans le controller Front. 
             validateThisComment($isSignaled, $commentId);
         }
-    }        
-
+        else{
+            accueil();
+        }
+        break;
     // Suppresion d'un commentaire 
-    if($_GET["action"] === "deleteComment"){
-        if(isset($_GET["id"])) {
-            $id = intval($_GET["id"]);
+    case 'deleteComment' :
+        if (isset($_GET['id']) && $_GET['id'] > 0) {
+            $id = intval($_GET['id']);
             deleteThisComment($id);
         }
-    }  
-    
-} else{
-    accueil();
+        else{
+            accueil();
+        }
+        break;
+    default :
+        accueil();
+        break;
 }
-
