@@ -79,7 +79,7 @@
         <hr>
         <h4>Tous les épisodes de mon livre:</h4>
         <p class="lead"><em>"Billet simple pour l'Alaska"</em></p>
-        <a class="btn btn-secondary btn-md view" href="index.php?action=blog" target="_blank">Cliquez ici</a>
+        <a class="btn btn-secondary btn-md view" href="index.php?action=blog">Cliquez ici</a>
         <hr>
     </div>
 </section>

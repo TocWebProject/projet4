@@ -33,7 +33,7 @@
 
     </head>
     <body>
-
+         <!-- ========== Content ========== -->
         <?= $content ?>
 
         <!-- Optional JavaScript -->

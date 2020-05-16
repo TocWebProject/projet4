@@ -41,7 +41,7 @@
         </ul>
     </div>
 </nav>
-
+<!-- ========== SECTION ========== -->
 <section class="section_1_resume_all_articles">
     <div class="container">
         <div class="row justify-content-center">
