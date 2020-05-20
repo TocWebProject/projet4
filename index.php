@@ -5,8 +5,9 @@ session_start();
 require('src/Controllers/ControllerFront.php');
 require('src/Controllers/ControllerBack.php');
 
-if(empty($_GET['action']) AND $_GET !== 'action'){
-    accueil();
+//Affichage de la page accueil 
+if(!isset($_GET['action'])){
+    return accueil();
 }
 
 switch ($_GET['action']) {
