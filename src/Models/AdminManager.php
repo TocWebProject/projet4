@@ -1,5 +1,6 @@
 <?php
-class AdminManager
+require_once('Manager.php');
+class AdminManager extends Manager 
 {
     // Check Login
     public function checkLogin($mail, $pwd)
@@ -28,18 +29,5 @@ class AdminManager
             }
         }
     }  
-
-   // Connexion à la bdd.
-   private function dbConnect()
-   {
-       try
-       {
-           $db = new PDO('mysql:host=localhost;dbname=jeanForteroche-blog;charset=utf8', 'root', 'root');
-           return $db;
-       }
-       catch(Exception $e)
-       {
-           die('Erreur : '.$e->getMessage());
-       }
-   }    
+  
 }

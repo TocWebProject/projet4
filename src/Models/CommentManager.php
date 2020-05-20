@@ -1,5 +1,6 @@
 <?php
-class CommentManager
+require_once('Manager.php');
+class CommentManager extends Manager 
 {
     // Récupération des commentaires d'un article.
     public function getComments($postId)
@@ -83,17 +84,4 @@ class CommentManager
 
     }
 
-    // Connexion à la bdd.
-    private function dbConnect()
-    {
-        try
-        {
-            $db = new PDO('mysql:host=localhost;dbname=jeanForteroche-blog;charset=utf8', 'root', 'root');
-            return $db;
-        }
-        catch(Exception $e)
-        {
-            die('Erreur : '.$e->getMessage());
-        }
-    }
 }

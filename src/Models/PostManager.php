@@ -1,5 +1,6 @@
 <?php
-class PostManager
+require_once('Manager.php');
+class PostManager extends Manager 
 {
     // Récupération de tous les articles
     public function getPosts()
@@ -60,17 +61,4 @@ class PostManager
         return $req;
     }
 
-    // Connexion à la bdd.
-    private function dbConnect()
-    {
-        try
-        {
-            $db = new PDO('mysql:host=localhost;dbname=jeanForteroche-blog;charset=utf8', 'root', 'root');
-            return $db;
-        }
-        catch(Exception $e)
-        {
-            die('Erreur : '.$e->getMessage());
-        }
-    }
 }
