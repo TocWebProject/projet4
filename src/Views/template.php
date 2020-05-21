@@ -38,7 +38,7 @@
 
         <!-- Optional JavaScript -->
         <!-- TinyMCE CDN -->
-        <script src="https://cdn.tiny.cloud/1/iq5gpg9kfrkc1sc9bkz25ccxrl6sajel8w3624zzrjz5985s/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+        <script src="https://cdn.tiny.cloud/1/tufo2lqyx5ahubmhthqy1c8r4r73o9vd9wip6gufa1wb1qqt/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script type="text/javascript" src="src/Assets/ext/js/jquery.min.js"></script>
         <script type="text/javascript" src="src/Assets/ext/js/popper.min.js"></script>
