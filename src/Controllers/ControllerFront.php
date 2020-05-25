@@ -25,7 +25,7 @@ function accueil()
     require ('src/Views/Front/viewHome.php');
 }
 
-// Appel de la fonction extractContent dans le model pour récupérer un extrait de 'string'. 
+// Appel de la fonction extractContent pour récupérer un extrait de 'string'. 
 function getExtractContent($string, $max_length)
 {
     $newExtract = extractContent($string, $max_length);

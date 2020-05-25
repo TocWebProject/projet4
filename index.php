@@ -5,7 +5,7 @@ session_start();
 require('src/Controllers/ControllerFront.php');
 require('src/Controllers/ControllerBack.php');
 
-//Affichage de la page accueil 
+//Si il n'ya pas de $_GET['action'] ou si différent de $_GET['action'] -> Affichage de la page accueil 
 if(!isset($_GET['action'])){
     return accueil();
 }
@@ -29,15 +29,8 @@ switch ($_GET['action']) {
             // Si les champs existent et qu'ils ne sont pas vides.
             if(isset($_POST['userName'], $_POST['comment']) AND !empty($_POST['userName']) AND !empty($_POST['comment'])) {
                 // Sécurisation des valeurs transmise par l'utilisateur:
-                // Suppression des espaces inutiles
-                $userName = trim($_POST['userName']);
-                $comment = trim($_POST['comment']);
-                // Suppression des antislashes 
-                $userName = stripslashes($_POST['userName']);
-                $comment = stripslashes($_POST['comment']);
-                // Suppression des caractères spéciaux tel que les chevrons > & <
-                $userName = htmlspecialchars($_POST['userName']);
-                $comment = htmlspecialchars($_POST['comment']);
+                $userName  = htmlspecialchars(trim(stripslashes($_POST['userName'])));
+                $comment = htmlspecialchars(trim(stripslashes($_POST['comment'])));
                 $id = intval($_GET['id']);
                 addNewComment($id, $userName, $comment);
             }
@@ -78,15 +71,9 @@ switch ($_GET['action']) {
             // Si les champs existent et qu'ils ne sont pas vides.
             if(isset($_POST['emailAdmin'], $_POST['pwdAdmin']) AND !empty($_POST['emailAdmin']) AND !empty($_POST['pwdAdmin'])) {
                 // Sécurisation des valeurs transmise par l'utilisateur:
-                // Suppression des espaces inutiles
-                $checkEmailAdmin = trim($_POST['emailAdmin']);
-                $checkPwdAdmin = trim($_POST['pwdAdmin']);
-                // Suppression des antislashes 
-                $checkEmailAdmin = stripslashes($_POST['emailAdmin']);
-                $checkPwdAdmin = stripslashes($_POST['pwdAdmin']);
-                // Suppression des caractères spéciaux tel que les chevrons > & <
-                $checkEmailAdmin = htmlspecialchars($_POST['emailAdmin']);
-                $checkPwdAdmin = htmlspecialchars($_POST['pwdAdmin']);
+                // Suppression des caractères spéciaux tel que les chevrons > & <, des antislashes et espaces inutiles.
+                $checkEmailAdmin = htmlspecialchars(trim(stripslashes($_POST['emailAdmin'])));
+                $checkPwdAdmin = htmlspecialchars(trim(stripslashes($_POST['pwdAdmin'])));
                 // Appel de la fonction Vérification LogIn dans le controller Back. 
                 getCheckLogin($checkEmailAdmin, $checkPwdAdmin);
             }
@@ -110,12 +97,9 @@ switch ($_GET['action']) {
             // Si les champs existent et qu'ils ne sont pas vides.
             if(isset($_POST['titleNewPost'], $_POST['contentNewPost']) AND !empty($_POST['titleNewPost']) AND !empty($_POST['contentNewPost'])) {                       
                 // Sécurisation des valeurs transmise par l'utilisateur:
-                // Suppression des espaces inutiles
-                $titleNewPost = trim($_POST['titleNewPost']);
-                $contentNewPost = trim($_POST['contentNewPost']);
-                // Suppression des antislashes 
-                $titleNewPost = stripslashes($_POST['titleNewPost']);
-                $contentNewPost = stripslashes($_POST['contentNewPost']);
+                // Suppression des antislashes et espaces inutiles
+                $titleNewPost = stripslashes(trim($_POST['titleNewPost']));
+                $contentNewPost = stripslashes(trim($_POST['contentNewPost']));
                 // Appel de la fonction addNewPost() dans le controller Back. 
                 addNewPost($titleNewPost,$contentNewPost);
             }else{
@@ -148,12 +132,9 @@ switch ($_GET['action']) {
             // Si les champs existent et qu'ils ne sont pas vides.
             if(isset($_POST['titleModificationPost'], $_POST['contentAddModificationArticle']) AND !empty($_POST['titleModificationPost']) AND !empty($_POST['contentAddModificationArticle'])) {                       
                 // Sécurisation des valeurs transmise par l'utilisateur:
-                // Suppression des espaces inutiles
-                $titleModificationPost = trim($_POST['titleModificationPost']);
-                $contentAddModificationArticle = trim($_POST['contentAddModificationArticle']);
-                // Suppression des antislashes 
-                $titleModificationPost = stripslashes($_POST['titleModificationPost']);
-                $contentAddModificationArticle = stripslashes($_POST['contentAddModificationArticle']);
+                // Suppression des antislashes et espaces inutiles
+                $titleModificationPost = stripslashes(trim($_POST['titleModificationPost']));
+                $contentAddModificationArticle = stripslashes(trim($_POST['contentAddModificationArticle']));
                 // Appel de la fonction addNewUpdatePost() dans le controller Back.                     
                 addNewUpdatePost($titleModificationPost, $contentAddModificationArticle, $id);
             }
