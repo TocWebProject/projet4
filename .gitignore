@@ -1,1 +1,2 @@
 /vendor/
+echo .DS_Store >> .gitignore
